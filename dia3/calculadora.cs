@@ -21,5 +21,7 @@ int porcentajeDescuento = Convert.ToInt32(Console.ReadLine());
 double conDescuento = AplicarDescuento(subtotal,porcentajeDescuento);
 
 Console.WriteLine("============================");
-Console.WriteLine("Subtotal: "+conDescuento + " Gs.");
+Console.WriteLine("Subtotal: "+subtotal + " Gs.");
+Console.WriteLine("Descuento [" + porcentajeDescuento  +"%] : - "+(subtotal-conDescuento) + " Gs.");
+Console.WriteLine("Con Descuento: "+conDescuento + " Gs.");
 Console.WriteLine("============================");

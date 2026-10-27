@@ -1,0 +1,8 @@
+
+SELECT * FROM CLIENTES;
+
+SELECT name FROM CLIENTES WHERE ciudad = "San lorenzo";
+
+UPDATE CLIENTES SET name = "algo" WHERE id = 2;
+
+DELETE FROM CLIENTES WHERE id = 2;

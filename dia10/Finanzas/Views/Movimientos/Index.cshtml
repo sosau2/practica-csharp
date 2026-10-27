@@ -1,0 +1,81 @@
+@model List<Movimiento>
+@{
+    ViewData["Title"] = "Movimientos";
+    int ingresos = Model.Where(m=> m.TipoMovimiento== TipoMovimiento.Ingreso).Sum(m=>m.Monto);
+    int egresos = Model.Where(m=> m.TipoMovimiento== TipoMovimiento.Egreso).Sum(m=>m.Monto);
+}
+
+<div class="space-y-8">
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+            <p class="text-xs font-semibold uppercase tracking-[0.25em] text-slate-500">Dashboard</p>
+            <h1 class="mt-2 text-3xl font-bold text-slate-900">Movimientos</h1>
+        </div>
+
+        <a asp-action="Create" class="inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-slate-700">
+            Nuevo Movimiento
+        </a>
+    </div>
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            @ViewBag.Error
+        </div>
+    }
+
+    <div class="grid gap-4 md:grid-cols-3">
+        <div class="rounded-2xl border border-emerald-200 bg-emerald-50 p-5 shadow-sm">
+            <p class="text-sm font-medium text-emerald-700">Ingresos</p>
+            <p class="mt-3 text-3xl font-bold text-emerald-900">@ingresos.ToString("N0") Gs.</p>
+        </div>
+
+        <div class="rounded-2xl border border-red-200 bg-red-50 p-5 shadow-sm">
+            <p class="text-sm font-medium text-red-700">Egresos</p>
+            <p class="mt-3 text-3xl font-bold text-red-900">@egresos.ToString("N0") Gs.</p>
+        </div>
+
+        <div class="rounded-2xl border border-sky-200 bg-sky-50 p-5 shadow-sm">
+            <p class="text-sm font-medium text-sky-700">Saldo</p>
+            <p class="mt-3 text-3xl font-bold text-sky-900">@((ingresos-egresos).ToString("N0")) Gs.</p>
+        </div>
+    </div>
+
+    <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-slate-200">
+                <thead class="bg-slate-50">
+                    <tr>
+                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-600">Id</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-600">Tipo</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-600">Descripcion</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-600">Monto</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-600">Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody class="divide-y divide-slate-100 bg-white">
+                    @foreach (Movimiento m in Model)
+                    {
+                        <tr class="transition hover:bg-slate-50">
+                            <td class="px-4 py-3 text-sm text-slate-700">@m.Id</td>
+                            <td class="px-4 py-3 text-sm text-slate-700">@m.TipoMovimiento</td>
+                            <td class="px-4 py-3 text-sm text-slate-700">@m.Descripcion</td>
+                            <td class="px-4 py-3 text-sm font-medium text-slate-800">@m.Monto.ToString("N0") Gs.</td>
+                            <td class="px-4 py-3">
+                                <div class="flex items-center gap-2">
+                                    <a asp-action="Edit" asp-route-id="@m.Id" class="inline-flex items-center rounded-lg border border-sky-200 bg-sky-50 px-3 py-1.5 text-xs font-medium text-sky-700 transition hover:bg-sky-100">
+                                        Editar
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@m.Id" class="inline-flex items-center rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-xs font-medium text-red-700 transition hover:bg-red-100">
+                                        Eliminar
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>x
