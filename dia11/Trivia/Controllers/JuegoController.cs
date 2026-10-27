@@ -31,7 +31,7 @@ public class JuegoController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Responder(string jugador,Dictionary<int,string> respuestas)
     {
-        Console.WriteLine("########################################");
+        
         if (string.IsNullOrWhiteSpace(jugador)||respuestas.Count == 0)
         {
             return RedirectToAction("Index");

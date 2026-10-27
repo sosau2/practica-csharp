@@ -23,7 +23,7 @@ public class SupabaseCliente
     {
         HttpResponseMessage respuesta = await _http.GetAsync(consulta);
         respuesta.EnsureSuccessStatusCode();
-        Console.Write(respuesta);
+        
         return await respuesta.Content.ReadFromJsonAsync<List<T>>()?? new List<T>();
     }
 
