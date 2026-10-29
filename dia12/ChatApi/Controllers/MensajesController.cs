@@ -29,6 +29,6 @@ public class MensajesController : ControllerBase
     public async Task<IActionResult> Eliminar (int id)
     {
         await _supabase.Eliminar("mensajes",id);
-        return NoContent();
+        return StatusCode(StatusCodes.Status202Accepted);
     }
 }
