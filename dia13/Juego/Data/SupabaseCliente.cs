@@ -1,6 +1,6 @@
 
 
-namespace ChatApi.Data;
+namespace Juego.Data;
 
 public class SupabaseCliente
 {

@@ -1,15 +1,15 @@
-using ChatApi.Data;
+using Juego.Data;
 using Juego.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Juego.Controllers;
-
-public class PuntajeController:Controller
+[ApiController]
+[Route("api/[controller]")]
+public class PuntajeController:ControllerBase
 {
     private readonly SupabaseCliente _supabase;
 
-    private readonly string _tabla = "puntajes";
-    private readonly string _orden = "creado";
+    private readonly string _tabla = "puntajes";    
     private readonly string _limite = "50";
 
     public PuntajeController(SupabaseCliente supabase)
@@ -17,17 +17,17 @@ public class PuntajeController:Controller
         _supabase = supabase;
     }
 
+    [HttpGet]
     public async Task<List<Puntaje>> Listar()
     {        
-        return await _supabase.Listar<Puntaje>($"{_tabla}?select=*&order={_orden}.desc&limit={_limite}");
+        return await _supabase.Listar<Puntaje>($"{_tabla}?select=*&order=puntos.desc&limit={_limite}");
+    }
+    
+    [HttpPost]
+    public async Task<IActionResult> Insertar(Puntaje puntaje)
+    {
+        await _supabase.Insertar(_tabla,puntaje);
+        return StatusCode(StatusCodes.Status201Created);
     }
 
-    public async Task<List<Puntaje>> ListarPorNombre(string nombre)
-    {
-        return await _supabase.Listar<Puntaje>($"{_tabla}?select=*&where=nombre.eq={nombre}&order={_orden}.desc&limit={_limite}");
-    }
-    public async void Insertar(Puntaje puntaje)
-    {
-        await _supabase.Actualizar(_tabla,puntaje.Id,puntaje);
-    }
 }

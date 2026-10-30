@@ -1,4 +1,4 @@
-using ChatApi.Data;
+using Juego.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +16,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.UseSwaggerUI(options =>
     {
-        options.SwaggerEndpoint("/openapi/v1.json","Chat API v1") ;
+        options.SwaggerEndpoint("/openapi/v1.json","Juego") ;
     });
 }
 
